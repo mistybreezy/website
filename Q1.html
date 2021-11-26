@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toggle Message</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+</head>
+<body>
+  <div>
+  Page contains an anchor element and a paragraph below it. 
+  <br>The paragraph's visibility should be toggled by clicking on an anchor element with the following logic:
+
+  <br>At start, paragraph should not be visible
+  <br>After a click, paragraph should be visible
+  <br>After another click, paragraph should not be visible again
+  <br>Implement the following logic by adding missing attributes to anchor and paragraph elements.
+  </div>
+  <div id="app">
+    <!-- Add missing attributes to a and p elements -->
+    <a v-on:click = "isVisible = !isVisible" href="#">Want to buy a new car?</a>
+    <p v-if = "isVisible">Call +11 22 33 44 now!</p>
+  </div>
+  <script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+          isVisible: false
+        },
+        methods:{
+          toggle: function(event){
+            this.isVisible = !this.isVisible
+            return this.isVisible;
+          }
+        }
+      });
+    
+    // Example case
+    console.log(document.getElementById("app").innerHTML);
+  </script>
+</body>
+</html>
