@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assessment</title>
+	<link rel="stylesheet" href="assessment.css">
+	<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+<input class="filter" type="text" placeholder='Search by "Name" ...' v-model="filter"><br>
+<input class="filter" type="text" placeholder='Search by "Tag" ...' v-model="filter_tag"><br>
+
+	<div id="info" v-for="record in info.data.students" :ref="record.id"
+	v-show="filtering(filter,record.firstName+' '+record.lastName) && if_tag(record.id)">
+	
+		<img id="icon" :src="record.pic"></img>
+		
+		<h1>{{record.firstName}} {{record.lastName}}</h1>
+		
+		Email: {{record.email}}<br>
+		Company: {{record.company}}<br>
+		Skill: {{record.skill}}<br>		
+		
+		<details>
+			<summary>Average: {{avg(record.grades)}}%</summary><br>
+			<div id="sub" v-for="(grade, index) in record.grades">Test{{index + 1}}: {{grade}}%</div>
+		</details><br>
+		
+		<span style="margin-left:140pt"></span> 		
+		<br>		
+		<input id="add" placeholder="Add a tag ..." type="text" @keyup.enter="tags($event.target)"><br>
+		
+	</div>
+
+</div>
+</body>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+      info: {data:{students:[]}},
+	  filter: "",
+	  filter_tag: ""
+	  },
+  mounted () {
+    axios.get('https://api.hatchways.io/assessment/students')
+      .then(response => (this.info = response))
+  },
+  methods:{
+	avg(dic){
+		let sum = 0
+		for (let key in dic){
+			sum = sum + parseInt(dic[key])}
+		return sum / dic.length			
+	},
+	filtering(chr, str){
+		return str.toLowerCase().includes(chr.toLowerCase())
+	},
+	if_tag(id){		
+		if (this.filter_tag == ""){return true}		
+		var spans = this.$refs[id][0].querySelectorAll('span[id^="tag"]')
+		for (i = 0; i < spans.length; ++i){
+			if (spans[i].innerText == this.filter_tag){return true}
+		}				
+		return false
+	},
+	tags(self){
+	if (confirm("Add tag \"" + self.value + "\" ?")) {
+		let tag = document.createElement("span")
+		tag.id = "tag"
+		tag.innerText = self.value
+		self.parentNode.insertBefore(tag,self.previousElementSibling)
+		self.value = ""
+												     }
+			  }
+		}
+  
+})
+;
+</script>

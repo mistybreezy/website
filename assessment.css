@@ -1,0 +1,48 @@
+body {
+  background-color: lightgrey;
+}
+#info{
+  font-family: 'Raleway', sans-serif;
+  font-size: 15pt;
+}
+#icon{
+  width:120pt;
+  height:120pt;
+  margin-right:20pt;
+  float:left;
+  background: white;
+  border-radius: 50%;
+  display:block;
+}
+input.filter{
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
+input#add{
+  width: 80pt;
+  margin-left:140pt;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border-radius: 4px;}
+#sub{padding-left:155pt;}
+#tag{
+  margin-left:120pt;
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 20px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
